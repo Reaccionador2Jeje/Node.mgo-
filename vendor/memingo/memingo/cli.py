@@ -44,6 +44,7 @@ def banner(version="0.2.0", subtitle="CODE THE BIT"):
     print(color("  ╰───┬────────────┬───╯", YELLOW))
     print(color("      │  " + subtitle[:18].upper().ljust(18) + "  │  " + f"v{version}", BOLD + CYAN))
     print(color("      ╰──────────────╯", DIM))
+    print(color("  ◆ MEMINGO SYSTEMS", BOLD + MAGENTA))
 
 
 def logo():
@@ -91,7 +92,7 @@ def heading(title, subtitle=None):
 def key_value(rows, label_width=18):
     print(color("  ┌" + "─" * (label_width + 2), DIM))
     for label, value in rows:
-        print(color("  │", DIM) + " " + color(str(label).upper().ljust(label_width), CYAN) + color("  " + str(value), WHITE))
+        print(color("  │", DIM) + " " + color(str(label).ljust(label_width), CYAN) + color("  " + str(value), WHITE))
     print(color("  └" + "─" * (label_width + 2), DIM))
 
 
