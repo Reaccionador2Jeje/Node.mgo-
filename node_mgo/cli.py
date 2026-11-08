@@ -70,6 +70,9 @@ def main(argv: Sequence[str] | None = None) -> int:
         return 0
 
     target, *arguments = values
+    if target == "--version":
+        print(f"Node.mgo {__version__}")
+        return 0
     if target in {"-h", "--help"}:
         build_parser().print_help()
         return 0
