@@ -1,0 +1,2 @@
+vibe name = "Node.mgo"
+spill "Hello from " + name
