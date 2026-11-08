@@ -1,0 +1,5 @@
+# Normalize text files so the formatter and tests behave the same on every OS.
+* text=auto eol=lf
+
+# PowerShell accepts LF, but CRLF is the conventional Windows line ending.
+*.ps1 text eol=crlf
