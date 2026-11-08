@@ -21,8 +21,8 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js 24 LTS
 - [x] Vendor the upstream Memingo regression test suite.
 - [x] Add Node.mgo CLI integration tests.
 - [x] Preserve upstream Memingo documentation and BSD 3-Clause license.
-- [ ] Run and confirm the upstream regression suite in CI.
-- [ ] Vendor or otherwise pin the curated package catalog, examples and remaining Memingo distribution assets.
+- [ ] Run and confirm the complete upstream regression suite in CI.
+- [x] Vendor the 20 curated package source folders, registry index and all 20 versioned package archives from the pinned Memingo commit.\n- [ ] Vendor or otherwise pin the remaining Memingo examples and distribution assets.
 - [ ] Integrate MemeCraft, installers, shell completions and VS Code support into the unified distribution.
 - [ ] Add regression tests proving real existing Memingo projects and package workflows work unchanged.
 
