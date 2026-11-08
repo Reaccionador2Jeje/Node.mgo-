@@ -4,6 +4,8 @@ The JavaScript engine is a core part of Node.mgo. It must ultimately implement t
 
 JavaScript source must be interpreted by the engine implemented in Memingo. It must not be forwarded to Node.js, V8, Python, or another JavaScript engine as a hidden execution dependency.
 
+See the [Node.js 24 API inventory](../../docs/NODEJS_24_INVENTORY.md) for the host runtime coverage map. The official API reference is pinned initially to Node.js v24.22.2.
+
 ## Required engine layers
 - Lexer and parser, including correct source locations.
 - Complete syntax tree and language grammar for the target edition.
@@ -40,4 +42,5 @@ The following are proposed module boundaries, not existing implementation files:
 - Test evaluation order, coercion, scope and error behavior.
 - Preserve source locations in syntax and runtime errors.
 - Run conformance tests continuously.
+- Expand the Node.js inventory to symbol-level coverage.
 - Document every known deviation; never mark a feature complete based on a placeholder.
