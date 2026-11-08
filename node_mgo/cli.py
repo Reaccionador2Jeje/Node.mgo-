@@ -28,13 +28,23 @@ def _run_memingo(path: str) -> int:
     return run_file(path)
 
 
+def _call_entrypoint(entrypoint, arguments: list[str]) -> int:
+    try:
+        result = entrypoint(arguments)
+    except SystemExit as exc:
+        result = exc.code
+    if result is None:
+        return 0
+    return result if isinstance(result, int) else 1
+
+
 def _run_memingo_command(arguments: list[str]) -> int:
     try:
         from memingo.__main__ import main as memingo_main
     except ImportError as exc:
         print(f"Node.mgo: Memingo runtime could not be loaded: {exc}", file=sys.stderr)
         return 1
-    return memingo_main(arguments)
+    return _call_entrypoint(memingo_main, arguments)
 
 
 def _run_mgoa_command(arguments: list[str]) -> int:
@@ -43,7 +53,7 @@ def _run_mgoa_command(arguments: list[str]) -> int:
     except ImportError as exc:
         print(f"Node.mgo: mgoa could not be loaded: {exc}", file=sys.stderr)
         return 1
-    return mgoa_main(arguments)
+    return _call_entrypoint(mgoa_main, arguments)
 
 
 def build_parser() -> argparse.ArgumentParser:
