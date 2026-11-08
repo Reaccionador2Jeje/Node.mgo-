@@ -7,17 +7,17 @@ The current host runtime is the preserved Python-based Memingo interpreter. PyIn
 Use Python 3.10+ and install the pinned build tool:
 
     python -m pip install -r requirements-build.txt
-    python -m PyInstaller --noconfirm --clean --onefile --name node-mgo --paths vendor/memingo --collect-submodules memingo node_mgo/__main__.py
-    dist/node-mgo --version
+    python -m PyInstaller --noconfirm --clean --onefile --name node_mgo --paths vendor/memingo --collect-all memingo packaging/entrypoint.py
+    dist/node_mgo --version
 
-On Windows the executable is `dist/node-mgo.exe`.
+On Windows the executable is `dist/node_mgo.exe`. After installation, run `node_mgo` directly from the terminal (without `python -m`).
 
 ## Release packages
 
 A version tag such as `v0.1.0` triggers the cross-platform GitHub Actions release workflow:
-- Windows x64: Inno Setup `.exe` installer.
-- macOS runner architecture: unsigned `.pkg` installer (not notarized).
-- Ubuntu x64: `.deb` package and portable `.tar.gz`.
+- Windows x64: Inno Setup `.exe` installer; command `node_mgo`.
+- macOS runner architecture: unsigned `.pkg` installer; command `node_mgo`.
+- Ubuntu x64: `.deb` package and portable `.tar.gz`; command `node_mgo`.
 
 These are early development builds and provide the currently implemented Memingo CLI only. JavaScript execution and full Node.js 24 compatibility are not included.
 
