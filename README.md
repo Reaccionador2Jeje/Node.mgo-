@@ -18,6 +18,25 @@ A unified runtime by Atdev Dev. The goal is to preserve the Memingo programming 
 
 JavaScript files (.js, .mjs, .cjs) are **not executable yet**. The CLI reports this explicitly and does not secretly invoke Node.js, V8 or another JavaScript runtime.
 
+## Official website
+
+The static multi-page website is in `website/` and includes:
+- Landing page and project status.
+- Download information for Windows, macOS and Linux.
+- Documentation for installation, commands, Memingo integration and the planned JavaScript engine.
+- Beginner tutorials.
+- Responsive layout for mobile and desktop.
+
+Preview locally (Python 3):
+
+    python -m http.server 8000 --directory website
+
+Then visit http://localhost:8000.
+
+A GitHub Actions workflow in `.github/workflows/pages.yml` publishes the website through GitHub Pages when the `bootstrap/runtime-structure` branch is updated. GitHub Pages must be enabled with GitHub Actions as its deployment source in repository settings.
+
+The download page links to GitHub Releases but does not claim that native installers exist. Windows, macOS and Linux installers must be built, tested and attached to a release before direct download links are added.
+
 ## Requirements for this development snapshot
 - Python 3.10 or newer is currently required because the preserved Memingo 0.2 interpreter is Python-based.
 - Node.js and npm are not required to run the current Memingo milestone.
@@ -54,6 +73,7 @@ The CI workflow runs both suites across Python 3.10–3.13 on Linux, Windows and
 - [Memingo integration details](runtime/memingo/README.md)
 - [JavaScript engine plan](runtime/javascript/README.md)
 - [Test strategy](tests/README.md)
+- [Website source and preview instructions](website/README.md)
 
 ## Licensing
 Node.mgo is distributed under GPL-3.0. The vendored Memingo 0.2 source retains its upstream BSD 3-Clause license and copyright notice in vendor/memingo/LICENSE.
