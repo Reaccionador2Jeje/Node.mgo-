@@ -2,8 +2,8 @@ name: Build Node.mgo installers
 
 on:
   push:
-    tags:
-      - "v*"
+    branches: ["bootstrap/runtime-structure"]
+    tags: ["v*"]
   workflow_dispatch:
 
 permissions:
@@ -23,7 +23,7 @@ jobs:
           - os: windows-latest
             platform: windows-x64
           - os: macos-latest
-            platform: macos
+            platform: macos-arm64
           - os: ubuntu-latest
             platform: linux-x64
     runs-on: ${{ matrix.os }}
@@ -37,7 +37,7 @@ jobs:
       - name: Install build tools
         run: python -m pip install -r requirements-build.txt
       - name: Build standalone executable
-        run: python -m PyInstaller --noconfirm --clean --onefile --name node-mgo --paths vendor/memingo --collect-submodules memingo node_mgo/__main__.py
+        run: python -m PyInstaller --noconfirm --clean --onefile --name node-mgo --paths vendor/memingo --collect-all memingo node_mgo/__main__.py
       - name: Smoke-test executable (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
@@ -46,11 +46,14 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           .\dist\node-mgo.exe --help
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $output = & .\dist\node-mgo.exe examples/hello.mgo
+          if ($LASTEXITCODE -ne 0 -or $output -notmatch 'Hello from Node.mgo') { throw 'Packaged Memingo example failed.' }
       - name: Smoke-test executable (Unix)
         if: runner.os != 'Windows'
         run: |
           ./dist/node-mgo --version
           ./dist/node-mgo --help
+          test "$(./dist/node-mgo examples/hello.mgo)" = "Hello from Node.mgo"
       - name: Build Windows installer
         if: runner.os == 'Windows'
         shell: pwsh
@@ -62,14 +65,15 @@ jobs:
       - name: Build macOS package
         if: runner.os == 'macOS'
         run: |
+          VERSION=$(python -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'].replace('.dev0',''))")
           mkdir -p pkgroot/usr/local/bin
           cp dist/node-mgo pkgroot/usr/local/bin/node-mgo
           chmod 755 pkgroot/usr/local/bin/node-mgo
-          pkgbuild --root pkgroot --identifier dev.atdev.node-mgo --version "${GITHUB_REF_NAME#v}" --install-location / dist/Node.mgo-macOS.pkg
+          pkgbuild --root pkgroot --identifier dev.atdev.node-mgo --version "$VERSION" --install-location / dist/Node.mgo-macOS-arm64.pkg
       - name: Build Linux packages
         if: runner.os == 'Linux'
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
+          VERSION=$(python -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'].replace('.dev0',''))")
           mkdir -p dist/node-mgo-linux-x64
           cp dist/node-mgo dist/node-mgo-linux-x64/node-mgo
           chmod 755 dist/node-mgo-linux-x64/node-mgo
@@ -84,7 +88,7 @@ jobs:
           Priority: optional
           Architecture: amd64
           Maintainer: Atdev Dev
-          Description: Unified Memingo and planned JavaScript runtime
+          Description: Unified Memingo and planned Node.js 24-compatible runtime
            Node.mgo currently bundles the Memingo interpreter and CLI.
           EOF
           dpkg-deb --build debroot "dist/Node.mgo-Linux-amd64.deb"
