@@ -2,7 +2,7 @@
 #define AppName "Node.mgo"
 #define AppVersion "0.1.0-dev"
 #define AppPublisher "Atdev Dev"
-#define AppExeName "node-mgo.exe"
+#define AppExeName "node_mgo.exe"
 
 [Setup]
 AppId={{8D5B9C3C-4F31-4B50-9C53-8E6A70A4B90B}
@@ -21,7 +21,7 @@ UninstallDisplayIcon={app}\{#AppExeName}
 SetupLogging=yes
 
 [Files]
-Source: "..\..\dist\node-mgo.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\..\dist\node_mgo.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\Node.mgo Terminal"; Filename: "{app}\{#AppExeName}"
