@@ -12,8 +12,12 @@ cleanup() {
 }
 trap cleanup EXIT
 
-if [ -z "\${PREFIX:-}" ] || [ "\${PREFIX}" != "/data/data/com.termux/files/usr" ]; then
-  echo "Error: este instalador debe ejecutarse dentro de Termux en Android."
+# Termux establece PREFIX en su directorio de herramientas.
+# No basta con comprobar Android: verificamos también que exista pkg.
+if [ "${PREFIX:-}" != "/data/data/com.termux/files/usr" ] || ! command -v pkg >/dev/null 2>&1; then
+  echo "Error: no se detectó Termux."
+  echo "PREFIX actual: ${PREFIX:-<no definido>}"
+  echo "Ejecuta este instalador desde la terminal de Termux, no desde ADB ni otra shell."
   exit 1
 fi
 
