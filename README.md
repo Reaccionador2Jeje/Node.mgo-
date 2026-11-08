@@ -13,6 +13,8 @@ A unified runtime project by Atdev Dev: preserve the Memingo programming ecosyst
 - [Architecture](docs/ARCHITECTURE.md)
 - [Memingo feature inventory](docs/MEMINGO_INVENTORY.md)
 - [Node.js 24 API inventory](docs/NODEJS_24_INVENTORY.md)
+- [Implementation blueprint](docs/IMPLEMENTATION_BLUEPRINT.md)
+- [API ledger template](docs/API_LEDGER_TEMPLATE.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Native Memingo runtime](runtime/memingo/README.md)
 - [JavaScript interpreter plan](runtime/javascript/README.md)
