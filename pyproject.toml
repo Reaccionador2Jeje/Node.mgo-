@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "node-mgo"
+version = "0.1.0.dev0"
+description = "A unified Memingo and JavaScript runtime targeting Node.js 24 compatibility"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0-only"
+authors = [{name = "Atdev Dev"}]
+dependencies = []
+
+[project.scripts]
+node-mgo = "node_mgo.cli:main"
+memingo = "memingo.__main__:main"
+mgoa = "memingo.mgoa_cli:main"
+
+[tool.setuptools]
+packages = ["node_mgo", "memingo"]
+package-dir = {node_mgo = "node_mgo", memingo = "vendor/memingo/memingo"}
