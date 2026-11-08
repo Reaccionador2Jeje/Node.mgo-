@@ -12,7 +12,9 @@ main = "node-mgo"
 
 [compatibility]
 nodejs = "24.x LTS"
-memingo = "full ecosystem compatibility"
+nodejs_api_reference = "24.22.2"
+memingo = "0.2"
+memingo_compatibility = "full ecosystem preservation"
 
 [runtimes]
 memingo = "native"
