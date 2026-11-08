@@ -1,0 +1,85 @@
+name: Build Node.mgo installers
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: node-mgo-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build ${{ matrix.asset }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            targets: node18-linux-x64,node18-linux-arm64
+            asset: node_mgo-linux-x64
+          - os: macos-latest
+            targets: node18-macos-arm64,node18-macos-x64
+            asset: node_mgo-macos-arm64
+          - os: windows-latest
+            targets: node18-win-x64
+            asset: node_mgo-win-x64.exe
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Run test suite
+        run: npm test
+      - name: Build standalone binaries
+        run: node scripts/build-standalone.js
+        env:
+          PKG_TARGETS: ${{ matrix.targets }}
+      - name: Smoke test (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          chmod +x "dist/${{ matrix.asset }}"
+          "./dist/${{ matrix.asset }}" --version
+          "./dist/${{ matrix.asset }}" examples/hello.mgo
+      - name: Smoke test (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          & ".\dist\${{ matrix.asset }}" --version
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & ".\dist\${{ matrix.asset }}" examples/hello.mgo
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Upload platform binaries
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-mgo-${{ matrix.os }}
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: Publish GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all platform binaries
+        uses: actions/download-artifact@v4
+        with:
+          pattern: node-mgo-*
+          path: release-assets
+          merge-multiple: true
+      - name: Publish release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-assets/*
+          generate_release_notes: true

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131d">
+  <meta name="description" content="Descarga Node.mgo para Linux, macOS y Windows. Binarios autónomos de Memingo, sin Node.js.">
+  <title>Descargas — Node.mgo</title>
+  <link rel="stylesheet" href="../assets/css/site.css">
+  <script src="../assets/js/site.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="../"><span class="brand-mark">m.</span><span>Node<span class="accent">.mgo</span></span></a>
+  <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  <nav class="nav">
+    <a href="../">Inicio</a>
+    <a class="active" href="./">Descargas</a>
+    <a href="../#instalar">Instalar</a>
+    <a class="nav-cta" href="https://github.com/Reaccionador2Jeje/Node.mgo-">GitHub ↗</a>
+  </nav>
+</header>
+<main class="wrap">
+  <section class="page-hero">
+    <span class="eyebrow">Descargas</span>
+    <h1>Node.mgo autónomo</h1>
+    <p>Binarios que incluyen el intérprete de Memingo y su biblioteca estándar. No requieren Node.js, Python ni dependencias adicionales.</p>
+  </section>
+
+  <section class="prose" style="padding-block:40px 20px">
+    <h2>Instalación recomendada</h2>
+    <p>El instalador detecta tu sistema y arquitectura, descarga el binario correcto y lo añade a tu <code class="inline-code">PATH</code>.</p>
+
+    <h3>Linux</h3>
+    <div class="code-line"><code>curl -fsSL https://reaccionador2jeje.github.io/Node.mgo-/install.sh | sh</code><button class="copy-button" data-copy="curl -fsSL https://reaccionador2jeje.github.io/Node.mgo-/install.sh | sh">Copiar</button></div>
+
+    <h3>macOS</h3>
+    <div class="code-line"><code>curl -fsSL https://reaccionador2jeje.github.io/Node.mgo-/install-macos.sh | sh</code><button class="copy-button" data-copy="curl -fsSL https://reaccionador2jeje.github.io/Node.mgo-/install-macos.sh | sh">Copiar</button></div>
+
+    <h3>Windows (PowerShell)</h3>
+    <div class="code-line"><code>irm https://reaccionador2jeje.github.io/Node.mgo-/install.ps1 | iex</code><button class="copy-button" data-copy="irm https://reaccionador2jeje.github.io/Node.mgo-/install.ps1 | iex">Copiar</button></div>
+
+    <div class="note">Los instaladores usan <code class="inline-code">~/.local/bin</code> en Linux/macOS y <code class="inline-code">%LOCALAPPDATA%\Node.mgo\bin</code> en Windows. Define <code class="inline-code">NODE_MGO_BIN_DIR</code> para cambiar el destino y <code class="inline-code">NODE_MGO_VERSION</code> para instalar una versión concreta.</div>
+
+    <h2>Descarga manual</h2>
+    <p>Descarga el archivo de tu plataforma desde la última release y dale permisos de ejecución.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Plataforma</th><th>Arquitectura</th><th>Archivo</th><th>Descarga</th></tr></thead>
+        <tbody>
+          <tr><td>Linux</td><td>x86_64</td><td><code class="inline-code">node_mgo-linux-x64</code></td><td><a href="https://github.com/Reaccionador2Jeje/Node.mgo-/releases/latest/download/node_mgo-linux-x64">Descargar</a></td></tr>
+          <tr><td>Linux</td><td>aarch64 / arm64</td><td><code class="inline-code">node_mgo-linux-arm64</code></td><td><a href="https://github.com/Reaccionador2Jeje/Node.mgo-/releases/latest/download/node_mgo-linux-arm64">Descargar</a></td></tr>
+          <tr><td>macOS</td><td>Apple Silicon</td><td><code class="inline-code">node_mgo-macos-arm64</code></td><td><a href="https://github.com/Reaccionador2Jeje/Node.mgo-/releases/latest/download/node_mgo-macos-arm64">Descargar</a></td></tr>
+          <tr><td>macOS</td><td>Intel x86_64</td><td><code class="inline-code">node_mgo-macos-x64</code></td><td><a href="https://github.com/Reaccionador2Jeje/Node.mgo-/releases/latest/download/node_mgo-macos-x64">Descargar</a></td></tr>
+          <tr><td>Windows</td><td>x64</td><td><code class="inline-code">node_mgo-win-x64.exe</code></td><td><a href="https://github.com/Reaccionador2Jeje/Node.mgo-/releases/latest/download/node_mgo-win-x64.exe">Descargar</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Linux / macOS</h3>
+    <pre><code>chmod +x node_mgo-linux-x64
+mkdir -p ~/.local/bin
+mv node_mgo-linux-x64 ~/.local/bin/node_mgo
+ln -sf node_mgo ~/.local/bin/memingo
+export PATH="$HOME/.local/bin:$PATH"
+node_mgo --version</code></pre>
+
+    <h3>Windows</h3>
+    <pre><code>mkdir "$env:LOCALAPPDATA\Node.mgo\bin" -Force
+Move-Item .\node_mgo-win-x64.exe "$env:LOCALAPPDATA\Node.mgo\bin\node_mgo.exe"
+$env:Path += ";$env:LOCALAPPDATA\Node.mgo\bin"
+node_mgo --version</code></pre>
+
+    <h2>Comandos incluidos</h2>
+    <p>El binario instala tres comandos:</p>
+    <ul>
+      <li><code class="inline-code">node_mgo</code> — runtime y CLI de Memingo.</li>
+      <li><code class="inline-code">memingo</code> — alias de <code class="inline-code">node_mgo</code>.</li>
+      <li><code class="inline-code">mgoa</code> — gestor de paquetes.</li>
+    </ul>
+
+    <h2>Verificar la instalación</h2>
+    <pre><code>node_mgo --version
+node_mgo eval 'spill 2 + 2'
+node_mgo examples/hello.mgo</code></pre>
+
+    <h2>Notas</h2>
+    <ul>
+      <li>Los binarios de macOS no están firmados ni notarizados. El instalador elimina el atributo de cuarentena; si descargas manualmente, ejecuta <code class="inline-code">xattr -d com.apple.quarantine ~/.local/bin/node_mgo</code>.</li>
+      <li>En Windows, SmartScreen puede mostrar una advertencia porque el ejecutable no está firmado.</li>
+      <li>Esta edición autónoma ejecuta Memingo (<code class="inline-code">.mgo</code>). Para ejecutar archivos JavaScript con Node.js, usa la instalación vía npm.</li>
+      <li>Las versiones anteriores están disponibles en <a href="https://github.com/Reaccionador2Jeje/Node.mgo-/releases">GitHub Releases</a>.</li>
+    </ul>
+
+    <h2>Desinstalar</h2>
+    <pre><code># Linux / macOS
+rm -f ~/.local/bin/node_mgo ~/.local/bin/memingo ~/.local/bin/mgoa
+
+# Windows PowerShell
+Remove-Item "$env:LOCALAPPDATA\Node.mgo" -Recurse -Force</code></pre>
+  </section>
+</main>
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <a class="brand" href="../"><span class="brand-mark">m.</span><span>Node<span class="accent">.mgo</span></span></a>
+    <p>Hecho por Atdev Dev · GPL-3.0</p>
+    <div><a href="../">Inicio</a><a href="https://github.com/Reaccionador2Jeje/Node.mgo-">GitHub</a><a href="https://github.com/Reaccionador2Jeje/Node.mgo-/releases">Releases</a></div>
+    <small>Node.mgo no está afiliado al proyecto oficial Node.js.</small>
+  </div>
+</footer>
+</body>
+</html>

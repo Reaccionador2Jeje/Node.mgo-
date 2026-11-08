@@ -1,0 +1,35 @@
+{
+  "name": "node-mgo",
+  "version": "0.2.0",
+  "description": "Node.mgo — Node.js with the Memingo programming language",
+  "license": "GPL-3.0-or-later",
+  "main": "src/index.js",
+  "bin": {
+    "node_mgo": "bin/node_mgo.js",
+    "memingo": "bin/node_mgo.js",
+    "mgoa": "bin/mgoa.js"
+  },
+  "scripts": {
+    "test": "node --test test/",
+    "start": "node bin/node_mgo.js",
+    "build:standalone": "node scripts/build-standalone.js"
+  },
+  "pkg": {
+    "scripts": [
+      "src/**/*.js"
+    ]
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "node",
+    "memingo",
+    "mgo",
+    "interpreter",
+    "language"
+  ],
+  "devDependencies": {
+    "@yao-pkg/pkg": "^5.16.1"
+  }
+}

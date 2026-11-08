@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10131d">
+  <meta name="description" content="Node.mgo: runtime de Memingo con instaladores autónomos para Linux, macOS y Windows. Ejecuta programas .mgo sin instalar Node.js.">
+  <title>Node.mgo — Memingo en tu terminal, sin Node.js</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+  <script src="assets/js/site.js" defer></script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="./"><span class="brand-mark">m.</span><span>Node<span class="accent">.mgo</span></span></a>
+  <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false">☰</button>
+  <nav class="nav">
+    <a class="active" href="./">Inicio</a>
+    <a href="downloads/">Descargas</a>
+    <a href="#instalar">Instalar</a>
+    <a href="#lenguaje">Lenguaje</a>
+    <a class="nav-cta" href="https://github.com/Reaccionador2Jeje/Node.mgo-">GitHub ↗</a>
+  </nav>
+</header>
+<main>
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <span class="eyebrow"><span class="dot"></span> Instaladores autónomos · v0.2.0</span>
+      <h1>Memingo.<br><span class="gradient-text">Sin Node.js.</span></h1>
+      <p class="hero-lead">Node.mgo es el runtime de Memingo con un solo comando de instalación para Linux, macOS y Windows. Ejecuta tus programas <code class="inline-code">.mgo</code> con el intérprete, la biblioteca estándar, el REPL y <code class="inline-code">mgoa</code>, sin dependencias externas.</p>
+      <div class="actions">
+        <a class="button primary" href="#instalar">Instalar ahora <span>→</span></a>
+        <a class="button secondary" href="downloads/">Descargas directas</a>
+      </div>
+      <p class="fine">Código abierto · GPL-3.0 · Linux x64/arm64 · macOS Intel/Apple Silicon · Windows x64</p>
+    </div>
+    <div class="terminal">
+      <div class="terminal-bar"><span></span><span></span><span></span><b>Terminal — Node.mgo</b></div>
+      <div class="terminal-body">
+        <p class="muted"># Instala Node.mgo en Linux</p>
+        <p><span class="prompt">$</span> curl -fsSL https://reaccionador2jeje.github.io/Node.mgo-/install.sh | sh</p>
+        <p class="success">Installed node_mgo, memingo and mgoa</p>
+        <p class="muted"># Ejecuta tu primer programa</p>
+        <p><span class="prompt">$</span> node_mgo examples/hello.mgo</p>
+        <p class="success">Hola desde Memingo!</p>
+        <p class="muted"># También puedes evaluar código</p>
+        <p><span class="prompt">$</span> node_mgo eval 'spill 2 + 2'</p>
+        <p class="success">4</p>
+        <span class="cursor"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="instalar">
+    <div class="section-heading">
+      <span class="eyebrow">Instalación en un comando</span>
+      <h2>Elige tu terminal</h2>
+      <p>Los instaladores descargan el binario autónomo desde GitHub Releases, lo colocan en tu <code class="inline-code">PATH</code> y crean los comandos <code class="inline-code">node_mgo</code>, <code class="inline-code">memingo</code> y <code class="inline-code">mgoa</code>.</p>
+    </div>
+    <div class="install-grid">
+      <article class="install-card">
+        <div class="install-head"><span class="platform">◈</span><div><h3>Linux</h3><p>x64 y arm64</p></div></div>
+        <p>Terminal de Linux (bash, zsh, fish o sh):</p>
+        <div class="code-line"><code>curl -fsSL https://reaccionador2jeje.github.io/Node.mgo-/install.sh | sh</code><button class="copy-button" data-copy="curl -fsSL https://reaccionador2jeje.github.io/Node.mgo-/install.sh | sh" aria-label="Copiar comando">Copiar</button></div>
+        <p class="install-note">Instala en <code class="inline-code">~/.local/bin</code>. Puedes cambiar el destino con <code class="inline-code">NODE_MGO_BIN_DIR</code>.</p>
+      </article>
+      <article class="install-card">
+        <div class="install-head"><span class="platform">⌘</span><div><h3>macOS</h3><p>Apple Silicon e Intel</p></div></div>
+        <p>Terminal de macOS (zsh):</p>
+        <div class="code-line"><code>curl -fsSL https://reaccionador2jeje.github.io/Node.mgo-/install-macos.sh | sh</code><button class="copy-button" data-copy="curl -fsSL https://reaccionador2jeje.github.io/Node.mgo-/install-macos.sh | sh" aria-label="Copiar comando">Copiar</button></div>
+        <p class="install-note">El instalador elimina la cuarentena de macOS. El binario no está notarizado todavía.</p>
+      </article>
+      <article class="install-card">
+        <div class="install-head"><span class="platform">⊞</span><div><h3>Windows</h3><p>PowerShell · x64</p></div></div>
+        <p>Terminal de PowerShell:</p>
+        <div class="code-line"><code>irm https://reaccionador2jeje.github.io/Node.mgo-/install.ps1 | iex</code><button class="copy-button" data-copy="irm https://reaccionador2jeje.github.io/Node.mgo-/install.ps1 | iex" aria-label="Copiar comando">Copiar</button></div>
+        <p class="install-note">Instala en <code class="inline-code">%LOCALAPPDATA%\Node.mgo\bin</code> y añade esa carpeta al PATH del usuario.</p>
+      </article>
+    </div>
+    <div class="note">¿Prefieres descargar el binario a mano? Consulta la <a href="downloads/">página de descargas</a> para ver enlaces directos, arquitecturas y verificación.</div>
+  </section>
+
+  <section class="wrap section" id="lenguaje">
+    <div class="section-heading">
+      <span class="eyebrow">El lenguaje</span>
+      <h2>Memingo, tal cual</h2>
+      <p>Variables, condiciones, bucles, rituales, listas, objetos y una biblioteca estándar completa. La misma semántica del intérprete original, empaquetada para ejecutarse en cualquier terminal.</p>
+    </div>
+    <div class="feature-grid">
+      <article class="feature"><span class="feature-icon">⌘</span><h3>Runtime completo</h3><p>Lexer, parser e intérprete con ámbitos, closures, recursión, objetos y listas multilínea.</p><a href="#empezar">Ver sintaxis →</a></article>
+      <article class="feature"><span class="feature-icon">JS</span><h3>JavaScript incluido</h3><p>La instalación con npm mantiene la ejecución de archivos <code class="inline-code">.js</code>, <code class="inline-code">.cjs</code> y <code class="inline-code">.mjs</code> mediante Node.js.</p><a href="https://github.com/Reaccionador2Jeje/Node.mgo-">Ver repositorio ↗</a></article>
+      <article class="feature"><span class="feature-icon">◇</span><h3>mgoa integrado</h3><p>Busca, instala y publica paquetes Memingo con verificación SHA-256 y extracción ZIP segura.</p><a href="#paquetes">Conocer mgoa →</a></article>
+    </div>
+  </section>
+
+  <section class="wrap section" id="empezar">
+    <div class="section-heading">
+      <span class="eyebrow">Primeros pasos</span>
+      <h2>Tu primer programa</h2>
+    </div>
+    <div class="split">
+      <div>
+        <p>Crea un archivo <code class="inline-code">hello.mgo</code>:</p>
+        <pre><code>vibe name = "Memingo"
+spill "Hola " + name
+
+ritual factorial(n) {
+    when n &lt;= 1 {
+        drop 1
+    }
+    drop n * factorial(n - 1)
+}
+
+spill factorial(5)</code></pre>
+      </div>
+      <div>
+        <p>Ejecútalo con el binario instalado:</p>
+        <pre><code>node_mgo hello.mgo
+# Hola Memingo
+# 120
+
+node_mgo repl
+node_mgo check .
+node_mgo fmt . --check
+node_mgo build .</code></pre>
+        <p class="install-note">El comando <code class="inline-code">node_mgo</code> también está disponible como <code class="inline-code">memingo</code>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap section" id="paquetes">
+    <div class="section-heading">
+      <span class="eyebrow">Paquetes</span>
+      <h2>Comparte tus rituales</h2>
+      <p><code class="inline-code">mgoa</code> instala paquetes desde el registro oficial, directorios locales, archivos ZIP o URLs directas.</p>
+    </div>
+    <pre><code>mgoa search
+mgoa info hello-memes
+mgoa add hello-memes
+mgoa add ./mi-paquete
+mgoa add ./mi-paquete.zip
+mgoa add https://ejemplo.com/mi-paquete-1.0.0.zip#sha256=&lt;digest&gt;
+mgoa list
+mgoa publish ./mi-paquete</code></pre>
+    <p>Dentro de un programa Memingo:</p>
+    <pre><code>borrow "hello-memes"
+greet("Team")</code></pre>
+  </section>
+
+  <section class="status-band">
+    <div class="wrap status-inner">
+      <div>
+        <span class="eyebrow">Sin dependencias</span>
+        <h2>Un binario, todo incluido</h2>
+        <p>Los instaladores de Linux, macOS y Windows descargan un ejecutable que incluye el intérprete y la biblioteca estándar. No necesitas Node.js, Python ni ningún runtime adicional para ejecutar Memingo.</p>
+      </div>
+      <a class="button secondary" href="https://github.com/Reaccionador2Jeje/Node.mgo-/releases">Ver releases ↗</a>
+    </div>
+  </section>
+
+  <section class="wrap section bottom-cta">
+    <h2>Listo para hacer memes en código</h2>
+    <p>Instala Node.mgo y empieza a escribir Memingo en menos de un minuto.</p>
+    <div class="actions">
+      <a class="button primary" href="#instalar">Instalar Node.mgo</a>
+      <a class="button secondary" href="https://github.com/Reaccionador2Jeje/Node.mgo-">Ver código fuente ↗</a>
+    </div>
+  </section>
+</main>
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <a class="brand" href="./"><span class="brand-mark">m.</span><span>Node<span class="accent">.mgo</span></span></a>
+    <p>Hecho por Atdev Dev · GPL-3.0</p>
+    <div><a href="downloads/">Descargas</a><a href="https://github.com/Reaccionador2Jeje/Node.mgo-">GitHub</a><a href="https://github.com/Reaccionador2Jeje/Node.mgo-/releases">Releases</a></div>
+    <small>Node.mgo no está afiliado al proyecto oficial Node.js.</small>
+  </div>
+</footer>
+</body>
+</html>
