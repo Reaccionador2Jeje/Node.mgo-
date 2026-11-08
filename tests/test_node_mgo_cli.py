@@ -42,6 +42,12 @@ class NodeMgoCliTests(unittest.TestCase):
             self.assertEqual(main(["memingo", "--version"]), 0)
         self.assertIn("Memingo 0.2.0", output.getvalue())
 
+    def test_mgoa_command_delegates_to_original_package_cli(self):
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            self.assertEqual(main(["mgoa", "--version"]), 0)
+        self.assertIn("mgoa 0.2.0", output.getvalue())
+
 
 if __name__ == "__main__":
     unittest.main()
