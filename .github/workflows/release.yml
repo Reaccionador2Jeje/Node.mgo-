@@ -1,0 +1,115 @@
+name: Build Node.mgo installers
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: node-mgo-release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build ${{ matrix.os }} installer
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            platform: windows-x64
+          - os: macos-latest
+            platform: macos
+          - os: ubuntu-latest
+            platform: linux-x64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install build tools
+        run: python -m pip install -r requirements-build.txt
+      - name: Build standalone executable
+        run: python -m PyInstaller --noconfirm --clean --onefile --name node-mgo --paths vendor/memingo --collect-submodules memingo node_mgo/__main__.py
+      - name: Smoke-test executable (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          .\dist\node-mgo.exe --version
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          .\dist\node-mgo.exe --help
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Smoke-test executable (Unix)
+        if: runner.os != 'Windows'
+        run: |
+          ./dist/node-mgo --version
+          ./dist/node-mgo --help
+      - name: Build Windows installer
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install innosetup --yes --no-progress
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          & $iscc packaging/windows/node-mgo.iss
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - name: Build macOS package
+        if: runner.os == 'macOS'
+        run: |
+          mkdir -p pkgroot/usr/local/bin
+          cp dist/node-mgo pkgroot/usr/local/bin/node-mgo
+          chmod 755 pkgroot/usr/local/bin/node-mgo
+          pkgbuild --root pkgroot --identifier dev.atdev.node-mgo --version "${GITHUB_REF_NAME#v}" --install-location / dist/Node.mgo-macOS.pkg
+      - name: Build Linux packages
+        if: runner.os == 'Linux'
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          mkdir -p dist/node-mgo-linux-x64
+          cp dist/node-mgo dist/node-mgo-linux-x64/node-mgo
+          chmod 755 dist/node-mgo-linux-x64/node-mgo
+          tar -C dist -czf dist/Node.mgo-Linux-x64.tar.gz node-mgo-linux-x64
+          mkdir -p debroot/usr/bin debroot/DEBIAN
+          cp dist/node-mgo debroot/usr/bin/node-mgo
+          chmod 755 debroot/usr/bin/node-mgo
+          cat > debroot/DEBIAN/control <<EOF
+          Package: node-mgo
+          Version: ${VERSION}
+          Section: devel
+          Priority: optional
+          Architecture: amd64
+          Maintainer: Atdev Dev
+          Description: Unified Memingo and planned JavaScript runtime
+           Node.mgo currently bundles the Memingo interpreter and CLI.
+          EOF
+          dpkg-deb --build debroot "dist/Node.mgo-Linux-amd64.deb"
+      - name: Upload platform artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: node-mgo-${{ matrix.platform }}
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: Publish GitHub Release
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all platform packages
+        uses: actions/download-artifact@v4
+        with:
+          pattern: node-mgo-*
+          path: release-assets
+          merge-multiple: true
+      - name: Publish release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: release-assets/*
+          generate_release_notes: true
