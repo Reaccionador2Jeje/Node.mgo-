@@ -6,7 +6,7 @@ Node.mgo aims to be a unified runtime that preserves the complete Memingo ecosys
 
 - **Node.js API baseline:** Node.js 24 LTS; API reference pinned initially to v24.22.2.
 - **JavaScript language baseline:** the ECMAScript features supported by the selected Node.js 24 release, verified against conformance tests.
-- **Memingo baseline:** Memingo 0.2, based on the original `Reaccionador2Jeje/Memingo` README and language reference.
+- **Memingo baseline:** Memingo 0.2, initially pinned to upstream commit `77b6f0a7028bc5b3422c6d5a10e51d7b235639e9`.
 
 Node.js 24 is the compatibility reference, not a runtime dependency. The intended Node.mgo installer should install Node.mgo and its Memingo-hosted JavaScript engine without requiring users to install upstream Node.js separately.
 
