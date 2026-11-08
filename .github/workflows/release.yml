@@ -66,20 +66,26 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           VERSION=$(python -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'].replace('.dev0',''))")
-          mkdir -p pkgroot/usr/local/bin
+          mkdir -p pkgroot/usr/local/bin pkgroot/usr/local/share/doc/node-mgo
           cp dist/node-mgo pkgroot/usr/local/bin/node-mgo
+          cp LICENSE pkgroot/usr/local/share/doc/node-mgo/LICENSE
+          cp vendor/memingo/LICENSE pkgroot/usr/local/share/doc/node-mgo/Memingo-BSD-3-Clause.txt
           chmod 755 pkgroot/usr/local/bin/node-mgo
           pkgbuild --root pkgroot --identifier dev.atdev.node-mgo --version "$VERSION" --install-location / dist/Node.mgo-macOS-arm64.pkg
       - name: Build Linux packages
         if: runner.os == 'Linux'
         run: |
           VERSION=$(python -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'].replace('.dev0',''))")
-          mkdir -p dist/node-mgo-linux-x64
+          mkdir -p dist/node-mgo-linux-x64/licenses
           cp dist/node-mgo dist/node-mgo-linux-x64/node-mgo
+          cp LICENSE dist/node-mgo-linux-x64/licenses/GPL-3.0.txt
+          cp vendor/memingo/LICENSE dist/node-mgo-linux-x64/licenses/Memingo-BSD-3-Clause.txt
           chmod 755 dist/node-mgo-linux-x64/node-mgo
           tar -C dist -czf dist/Node.mgo-Linux-x64.tar.gz node-mgo-linux-x64
-          mkdir -p debroot/usr/bin debroot/DEBIAN
+          mkdir -p debroot/usr/bin debroot/DEBIAN debroot/usr/share/doc/node-mgo
           cp dist/node-mgo debroot/usr/bin/node-mgo
+          cp LICENSE debroot/usr/share/doc/node-mgo/copyright
+          cp vendor/memingo/LICENSE debroot/usr/share/doc/node-mgo/Memingo-BSD-3-Clause.txt
           chmod 755 debroot/usr/bin/node-mgo
           cat > debroot/DEBIAN/control <<EOF
           Package: node-mgo
