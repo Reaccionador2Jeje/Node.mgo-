@@ -1,34 +1,33 @@
-# Native Memingo runtime
+# Memingo runtime integration
 
-Node.mgo's initial upstream compatibility baseline is **Memingo 0.2** from `Reaccionador2Jeje/Memingo`. The `.mgo` path is not a reduced compatibility mode.
+Node.mgo preserves the original Memingo 0.2.0 implementation from Reaccionador2Jeje/Memingo, pinned to commit 77b6f0a7028bc5b3422c6d5a10e51d7b235639e9.
 
-The original Memingo interpreter remains the source of truth. The initial source snapshot is pinned to commit 77b6f0a7028bc5b3422c6d5a10e51d7b235639e9; update this pin only after reviewing upstream changes and rerunning the full regression suite. Node.mgo should integrate it through a stable runtime interface and retain its semantics, standard library, tools and package workflows.
+## Vendored source
+- Runtime package: vendor/memingo/memingo/
+- Upstream regression tests: vendor/memingo/tests/
+- Upstream documentation: vendor/memingo/UPSTREAM_README.md, LANGUAGE.md, UPSTREAM_TODO.md
+- Upstream license: vendor/memingo/LICENSE (BSD 3-Clause)
 
-See [the complete Memingo feature inventory](../../docs/MEMINGO_INVENTORY.md), derived from the upstream `README.md`, `LANGUAGE.md` and `TODO.md`.
+The Memingo source files are retained as upstream source. The Node.mgo bridge imports the original memingo.__main__.run_file, memingo.__main__.main and memingo.mgoa_cli.main entry points. No shell-string interpolation is used for dispatch.
 
-## Preservation requirements
-- All Memingo syntax, values, operators, functions, objects and collections.
-- Every documented built-in and standard-library function.
-- JSON, environment, HTTP and project-scoped file helpers.
-- Project configuration, CLI, REPL, formatter, diagnostics and tests.
-- mgoa package manager, registry, lockfile and package workflows.
-- MemeCraft, website, installers, shell completions and VS Code integration.
-- Existing Memingo examples and packages.
+## Current commands
+    python -m node_mgo examples/hello.mgo
+    python -m node_mgo memingo --version
+    python -m node_mgo memingo repl
+    python -m node_mgo mgoa --help
 
-## Example
+The source distribution currently requires Python 3.10 or newer. Node.js is not required for this Memingo milestone.
 
-```mgo
-vibe name = "Node.mgo"
-spill "Hello from " + name
-```
+## Verification
+    PYTHONPATH=vendor/memingo python -m unittest discover -s vendor/memingo/tests -v
+    python -m unittest discover -s tests -p 'test_node_mgo*.py' -v
 
-## Integration checklist
-- [ ] Pin the exact upstream Memingo commit/release used for the baseline.
-- [ ] Identify the stable Memingo runtime entry point.
-- [ ] Invoke it without unsafe shell-string interpolation.
-- [ ] Preserve source file paths and diagnostic information.
-- [ ] Run the complete upstream Memingo test suite.
-- [ ] Add integration tests for existing Memingo projects and packages.
-- [ ] Verify no built-in, command or package workflow was lost.
+The CI workflow is configured to run both suites on Linux, macOS and Windows with Python 3.10–3.13. Do not describe the suite as passing until a green workflow run is observed.
 
-A Node.mgo release must not claim Memingo compatibility unless its Memingo regression suite passes.
+## Remaining preservation work
+
+The vendored interpreter, CLI, formatter, project tooling and mgoa implementation are present. The curated package catalog, full website/game assets, installers and VS Code extension still need to be incorporated or deliberately consumed from a pinned upstream release. See docs/ROADMAP.md.
+
+## License
+
+The vendored Memingo source remains under BSD 3-Clause; see vendor/memingo/LICENSE. The surrounding Node.mgo project remains GPL-3.0.
