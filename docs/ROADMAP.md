@@ -23,8 +23,20 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js 24 LTS
 - [x] Preserve upstream Memingo documentation and BSD 3-Clause license.
 - [ ] Run and confirm the upstream regression suite in CI.
 - [ ] Vendor or otherwise pin the curated package catalog, examples and remaining Memingo distribution assets.
-- [ ] Integrate MemeCraft, website, installers, shell completions and VS Code support into the unified distribution.
+- [ ] Integrate MemeCraft, installers, shell completions and VS Code support into the unified distribution.
 - [ ] Add regression tests proving real existing Memingo projects and package workflows work unchanged.
+
+## Stage 1B — Official website and learning resources
+- [x] Create a responsive static multi-page website.
+- [x] Add a landing page describing the project and its actual implementation status.
+- [x] Add Windows, macOS and Linux download sections without inventing unavailable binaries.
+- [x] Add documentation pages for setup, CLI, Memingo and JavaScript engine status.
+- [x] Add a beginner tutorial and tutorial index.
+- [x] Add a local preview guide.
+- [x] Add a GitHub Pages deployment workflow.
+- [ ] Enable GitHub Pages with GitHub Actions in repository settings and confirm a successful deployment.
+- [ ] Replace release placeholders with verified installer asset links after native installers are published.
+- [ ] Expand tutorials as runtime features become available.
 
 ## Stage 2 — JavaScript language engine in Memingo
 - [ ] Implement source positions, lexer and complete tokenizer behavior for the selected ECMAScript target.
