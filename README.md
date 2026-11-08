@@ -37,6 +37,10 @@ A GitHub Actions workflow in `.github/workflows/pages.yml` publishes the website
 
 The download page links to GitHub Releases but does not claim that native installers exist. Windows, macOS and Linux installers must be built, tested and attached to a release before direct download links are added.
 
+## Native installers
+
+A PyInstaller-based packaging pipeline is defined in `.github/workflows/release.yml`. It bundles the current Python-based Memingo runtime so end users do not need to install Python separately. The workflow builds a Windows x64 Inno Setup installer, an unsigned macOS ARM64 `.pkg`, and Linux x64 `.deb` plus `.tar.gz` packages. Push a `v*` tag to build and attach release assets; branch builds are uploaded as temporary Actions artifacts for smoke testing. See [packaging/README.md](packaging/README.md) for build and trust details. These packages do not add JavaScript support or Node.js 24 API compatibility.
+
 ## Requirements for this development snapshot
 - Python 3.10 or newer is currently required because the preserved Memingo 0.2 interpreter is Python-based.
 - Node.js and npm are not required to run the current Memingo milestone.
