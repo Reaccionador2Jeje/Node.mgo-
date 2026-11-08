@@ -8,12 +8,13 @@ A unified runtime by Atdev Dev. The goal is to preserve the Memingo programming 
 - Upstream Node.js is a compatibility reference, not a required runtime dependency.
 
 ## Current executable functionality
-- The original Memingo 0.2 Python runtime is vendored under vendor/memingo/memingo/.
+- The original Memingo 0.2 Python runtime is vendored under `vendor/memingo/memingo/`.
 - The original Memingo CLI, REPL, formatter, interpreter, standard library, project tooling and mgoa package-manager code are preserved.
+- The curated Memingo package catalog, all 20 package source folders, registry index and versioned ZIP archives are vendored under `vendor/memingo/packages/` and `vendor/memingo/site/mgoa/`.
 - `node_mgo file.mgo` runs a Memingo source file through the original interpreter after installation; `node-mgo` remains an equivalent alias.
 - `node_mgo memingo <command>` forwards to the original Memingo CLI.
 - `node_mgo mgoa <command>` forwards to the original package manager.
-- The original upstream regression tests are vendored under vendor/memingo/tests/.
+- The original upstream regression tests are vendored under `vendor/memingo/tests/`.
 - Node.mgo integration tests and a cross-platform GitHub Actions workflow have been added.
 
 JavaScript files (.js, .mjs, .cjs) are **not executable yet**. The CLI reports this explicitly and does not secretly invoke Node.js, V8 or another JavaScript runtime.
@@ -25,6 +26,7 @@ The static multi-page website is in `website/` and includes:
 - Download information for Windows, macOS and Linux.
 - Documentation for installation, commands, Memingo integration and the planned JavaScript engine.
 - Beginner tutorials.
+- A permanent Termux installation guide at `website/termux/index.html`.
 - Responsive layout for mobile and desktop.
 
 Preview locally (Python 3):
@@ -78,6 +80,6 @@ The CI workflow runs both suites across Python 3.10–3.13 on Linux, Windows and
 - [Website source and preview instructions](website/README.md)
 
 ## Licensing
-Node.mgo is distributed under GPL-3.0. The vendored Memingo 0.2 source retains its upstream BSD 3-Clause license and copyright notice in vendor/memingo/LICENSE.
+Node.mgo is distributed under GPL-3.0. The vendored Memingo 0.2 source and package ecosystem retain their upstream BSD 3-Clause license and copyright notice in `vendor/memingo/LICENSE`.
 
-**Compatibility honesty:** the repository currently contains a working Memingo bridge and the design for the JavaScript engine. It does not yet implement JavaScript or full Node.js 24 compatibility.
+**Compatibility honesty:** the repository currently contains a working Memingo bridge and the vendored Memingo package ecosystem, plus the design for the JavaScript engine. It does not yet implement JavaScript or full Node.js 24 compatibility.
