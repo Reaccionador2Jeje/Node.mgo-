@@ -1,16 +1,19 @@
 # Native Memingo runtime
 
-Node.mgo must preserve the complete Memingo language and ecosystem for the selected baseline version. The `.mgo` path is not a reduced compatibility mode.
+Node.mgo's initial upstream compatibility baseline is **Memingo 0.2** from `Reaccionador2Jeje/Memingo`. The `.mgo` path is not a reduced compatibility mode.
 
-The existing Memingo interpreter remains the source of truth. Node.mgo should integrate it through a stable runtime interface and retain its semantics, standard library, tools and package workflows.
+The original Memingo interpreter remains the source of truth. Node.mgo should integrate it through a stable runtime interface and retain its semantics, standard library, tools and package workflows.
+
+See [the complete Memingo feature inventory](../../docs/MEMINGO_INVENTORY.md), derived from the upstream `README.md`, `LANGUAGE.md` and `TODO.md`.
 
 ## Preservation requirements
 - All Memingo syntax, values, operators, functions, objects and collections.
-- All built-in functions and standard-library functions.
-- JSON, environment, HTTP, file and other runtime helpers.
+- Every documented built-in and standard-library function.
+- JSON, environment, HTTP and project-scoped file helpers.
 - Project configuration, CLI, REPL, formatter, diagnostics and tests.
-- mgoa package manager and its package workflows.
-- Existing editor integrations and supported tooling.
+- mgoa package manager, registry, lockfile and package workflows.
+- MemeCraft, website, installers, shell completions and VS Code integration.
+- Existing Memingo examples and packages.
 
 ## Example
 
@@ -20,6 +23,7 @@ spill "Hello from " + name
 ```
 
 ## Integration checklist
+- [ ] Pin the exact upstream Memingo commit/release used for the baseline.
 - [ ] Identify the stable Memingo runtime entry point.
 - [ ] Invoke it without unsafe shell-string interpolation.
 - [ ] Preserve source file paths and diagnostic information.
