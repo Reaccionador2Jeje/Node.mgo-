@@ -4,24 +4,32 @@ Node.mgo aims to be a unified runtime that preserves the complete Memingo ecosys
 
 ## Compatibility targets
 
-- **Node.js API baseline:** Node.js 24 LTS (Krypton).
+- **Node.js API baseline:** Node.js 24 LTS; API reference pinned initially to v24.22.2.
 - **JavaScript language baseline:** the ECMAScript features supported by the selected Node.js 24 release, verified against conformance tests.
-- **Memingo baseline:** the complete Memingo release selected and pinned by the project.
+- **Memingo baseline:** Memingo 0.2, based on the original `Reaccionador2Jeje/Memingo` README and language reference.
 
 Node.js 24 is the compatibility reference, not a runtime dependency. The intended Node.mgo installer should install Node.mgo and its Memingo-hosted JavaScript engine without requiring users to install upstream Node.js separately.
+
+## Compatibility inventories
+
+- [Memingo 0.2 feature inventory](MEMINGO_INVENTORY.md) — derived from the original Memingo `README.md`, `LANGUAGE.md` and `TODO.md`.
+- [Node.js 24 API inventory](NODEJS_24_INVENTORY.md) — top-level API coverage map based on the official v24.22.2 documentation.
+
+The inventories distinguish shipped features from roadmap work and compatibility targets. They are coverage maps, not claims that Node.mgo has already implemented the listed functionality.
 
 ## Two complete compatibility goals
 
 ### Memingo compatibility
 
-Node.mgo must preserve Memingo's existing language and ecosystem rather than replacing or reducing them. This includes, according to the supported Memingo release:
-- all Memingo syntax, values, operators, control flow, functions, objects, and collections;
-- the complete built-in and standard-library function set;
-- JSON, environment, HTTP, file and other runtime helpers;
+Node.mgo must preserve Memingo's existing language and ecosystem rather than replacing or reducing them. This includes, according to Memingo 0.2:
+- all syntax, values, operators, control flow, functions, objects and collections;
+- every built-in and standard-library function;
+- JSON, environment, HTTP and project-scoped file helpers;
 - project management, CLI, REPL, formatter, diagnostics and test tooling;
-- the `mgoa` package manager, package workflows, and editor/tooling integrations.
+- the `mgoa` package manager, registry, lockfile and package workflows;
+- MemeCraft, the website, installer, shell completions and editor integration.
 
-The Memingo implementation remains the source of truth. Node.mgo should integrate it and keep its behavior covered by regression tests.
+The Memingo implementation remains the source of truth. Node.mgo should integrate it and keep its behavior covered by regression tests. Features marked incomplete in Memingo's own `TODO.md` must not be represented as shipped Memingo functionality.
 
 ### Node.js 24 compatibility
 
