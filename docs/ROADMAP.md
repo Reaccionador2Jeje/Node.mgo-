@@ -11,7 +11,7 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js 24 LTS
 - [x] Write the implementation blueprint and architectural boundaries.
 - [x] Add CI configuration for Memingo regression and Node.mgo integration tests.
 - [ ] Expand Node.js coverage into every documented symbol, overload, option, event, error and stability label.
-- [ ] Confirm green CI baseline across all supported platforms.
+- [x] Confirm green CI baseline across all supported platforms (Python 3.10–3.13 on Linux, Windows and macOS).
 
 ## Stage 1 — Preserve and execute Memingo
 - [x] Vendor the original Memingo interpreter package without rewriting its language implementation.
@@ -21,10 +21,11 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js 24 LTS
 - [x] Vendor the upstream Memingo regression test suite.
 - [x] Add Node.mgo CLI integration tests.
 - [x] Preserve upstream Memingo documentation and BSD 3-Clause license.
-- [ ] Run and confirm the complete upstream regression suite in CI.
+- [x] Run and confirm the complete upstream regression suite in CI.
 - [x] Vendor the 20 curated package source folders, registry index and all 20 versioned package archives from the pinned Memingo commit.
-- [ ] Vendor or otherwise pin the remaining Memingo examples and distribution assets.
-- [ ] Integrate MemeCraft, installers, shell completions and VS Code support into the unified distribution.
+- [x] Vendor original Memingo example programs and the sample package project.
+- [x] Preserve the original Memingo static website, installer scripts and MemeCraft browser-game assets.
+- [ ] Wire the preserved MemeCraft/site assets into Node.mgo navigation and integrate Memingo installers, shell completions and VS Code support into the unified distribution.
 - [ ] Add regression tests proving real existing Memingo projects and package workflows work unchanged.
 
 ## Stage 1B — Official website and learning resources

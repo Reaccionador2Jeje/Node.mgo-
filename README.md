@@ -11,6 +11,7 @@ A unified runtime by Atdev Dev. The goal is to preserve the Memingo programming 
 - The original Memingo 0.2 Python runtime is vendored under `vendor/memingo/memingo/`.
 - The original Memingo CLI, REPL, formatter, interpreter, standard library, project tooling and mgoa package-manager code are preserved.
 - The curated Memingo package catalog, all 20 package source folders, registry index and versioned ZIP archives are vendored under `vendor/memingo/packages/` and `vendor/memingo/site/mgoa/`.
+- Original Memingo example programs and the original static website, installer scripts and MemeCraft browser-game assets are preserved under `vendor/memingo/examples/` and `vendor/memingo/site/`.
 - `node_mgo file.mgo` runs a Memingo source file through the original interpreter after installation; `node-mgo` remains an equivalent alias.
 - `node_mgo memingo <command>` forwards to the original Memingo CLI.
 - `node_mgo mgoa <command>` forwards to the original package manager.
