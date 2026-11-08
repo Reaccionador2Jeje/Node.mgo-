@@ -78,13 +78,16 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js 24 LTS
 - [ ] Define a separate strategy for native addons and ABI compatibility.
 
 ## Stage 6 — Installation and compatibility verification
-- [ ] Provide simple installers for supported operating systems.
+- [x] Add a PyInstaller-based standalone executable build and native package workflow for Windows, macOS and Linux.
+- [x] Build and smoke-test Windows x64 installer, macOS ARM64 package and Linux x64 .deb/.tar.gz artifacts in GitHub Actions.
+- [ ] Publish a versioned GitHub Release with permanent installer assets.
+- [ ] Provide simple installers for all supported operating systems and architectures.
 - [ ] Avoid requiring upstream Node.js separately.
 - [ ] Minimize and document host dependencies; Python 3.10+ is required by the current Memingo bridge.
 - [ ] Run Memingo's complete existing test suite as a release gate.
 - [ ] Run JavaScript language conformance tests for the selected target.
 - [ ] Run Node.js 24 API tests and CLI behavior tests.
-- [ ] Test installation, upgrade and uninstall on supported platforms.
+- [ ] Test full installation, upgrade and uninstall on supported platforms; current pipeline smoke-tests executable startup and a sample .mgo program.
 - [ ] Publish a compatibility matrix and known limitations.
 - [ ] Evaluate third-party npm package compatibility separately.
 
