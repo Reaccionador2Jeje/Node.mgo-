@@ -12,16 +12,29 @@ cleanup() {
 }
 trap cleanup EXIT
 
-# Termux establece PREFIX en su directorio de herramientas.
-# No basta con comprobar Android: verificamos también que exista pkg.
-if [ "${PREFIX:-}" != "/data/data/com.termux/files/usr" ] || ! command -v pkg >/dev/null 2>&1; then
-  echo "Error: no se detectó Termux."
-  echo "PREFIX actual: ${PREFIX:-<no definido>}"
-  echo "Ejecuta este instalador desde la terminal de Termux, no desde ADB ni otra shell."
+# Detecta Termux por sus herramientas, no por una ruta PREFIX fija.
+PKG_BIN="$(command -v pkg || true)"
+if [ -z "$PKG_BIN" ]; then
+  echo "Error: no encuentro el comando 'pkg'."
+  echo "Abre la aplicación Termux y ejecuta este instalador allí."
+  echo "Diagnóstico: PREFIX=${PREFIX:-<vacío>}, PATH=$PATH"
   exit 1
 fi
 
-echo "==> Instalando dependencias de Termux..."
+# En algunas instalaciones PREFIX puede no estar exportado o variar.
+if [ -z "${PREFIX:-}" ]; then
+  PREFIX="$(dirname "$(dirname "$PKG_BIN")")"
+  export PREFIX
+fi
+
+if [ ! -x "$PREFIX/bin/pkg" ] && [ ! -x "$PKG_BIN" ]; then
+  echo "Error: se encontró pkg, pero no se pudo determinar el entorno de Termux."
+  echo "Diagnóstico: PREFIX=$PREFIX, pkg=$PKG_BIN"
+  exit 1
+fi
+
+echo "==> Termux detectado en: $PREFIX"
+echo "==> Instalando dependencias..."
 pkg update -y
 pkg install -y python git
 
