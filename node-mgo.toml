@@ -14,6 +14,8 @@ main = "node-mgo"
 nodejs = "24.x LTS"
 nodejs_api_reference = "24.22.2"
 memingo = "0.2"
+memingo_source_repository = "Reaccionador2Jeje/Memingo"
+memingo_source_commit = "77b6f0a7028bc5b3422c6d5a10e51d7b235639e9"
 memingo_compatibility = "full ecosystem preservation"
 
 [runtimes]
