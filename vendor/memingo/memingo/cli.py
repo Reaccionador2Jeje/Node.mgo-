@@ -5,6 +5,18 @@ from contextlib import contextmanager
 from time import monotonic, sleep
 
 
+# Windows terminals may use legacy code pages that cannot encode box-drawing
+# characters. Replace unsupported decorative glyphs instead of crashing CLI
+# commands that create or inspect projects.
+for _stream in (sys.stdout, sys.stderr):
+    _reconfigure = getattr(_stream, "reconfigure", None)
+    if _reconfigure is not None:
+        try:
+            _reconfigure(errors="replace")
+        except (OSError, ValueError):
+            pass
+
+
 RESET = "\033[0m"
 BOLD = "\033[1m"
 DIM = "\033[2m"
