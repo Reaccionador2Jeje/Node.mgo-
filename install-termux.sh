@@ -6,37 +6,48 @@ BRANCH="bootstrap/runtime-structure"
 INSTALL_DIR="$HOME/.local/share/node-mgo"
 VENV="$INSTALL_DIR/venv"
 TMP_DIR="$(mktemp -d)"
+PKG_BIN=""
 
 cleanup() {
   rm -rf "$TMP_DIR"
 }
 trap cleanup EXIT
 
-# Detecta Termux por sus herramientas, no por una ruta PREFIX fija.
-PKG_BIN="$(command -v pkg || true)"
+# Termux puede ejecutar bash con un PATH incompleto al usar curl | bash.
+# Primero localizamos PREFIX y pkg sin depender de command -v.
+if [ -n "${PREFIX:-}" ] && [ -x "$PREFIX/bin/pkg" ]; then
+  PKG_BIN="$PREFIX/bin/pkg"
+else
+  for candidate in \
+    /data/data/com.termux/files/usr \
+    /data/user/0/com.termux/files/usr \
+    "$(dirname "$HOME")/usr"; do
+    if [ -x "$candidate/bin/pkg" ]; then
+      PREFIX="$candidate"
+      PKG_BIN="$PREFIX/bin/pkg"
+      break
+    fi
+  done
+fi
+
 if [ -z "$PKG_BIN" ]; then
-  echo "Error: no encuentro el comando 'pkg'."
-  echo "Abre la aplicación Termux y ejecuta este instalador allí."
-  echo "Diagnóstico: PREFIX=${PREFIX:-<vacío>}, PATH=$PATH"
+  echo "ERROR: no pude localizar el gestor de paquetes de Termux."
+  echo "Este instalador debe ejecutarse en la terminal principal de Termux."
+  echo "Diagnóstico:"
+  echo "  HOME=${HOME:-<vacío>}"
+  echo "  PREFIX=${PREFIX:-<vacío>}"
+  echo "  PATH=$PATH"
+  echo "  ANDROID_ROOT=${ANDROID_ROOT:-<vacío>}"
   exit 1
 fi
 
-# En algunas instalaciones PREFIX puede no estar exportado o variar.
-if [ -z "${PREFIX:-}" ]; then
-  PREFIX="$(dirname "$(dirname "$PKG_BIN")")"
-  export PREFIX
-fi
+export PREFIX
+export PATH="$PREFIX/bin:$PATH"
 
-if [ ! -x "$PREFIX/bin/pkg" ] && [ ! -x "$PKG_BIN" ]; then
-  echo "Error: se encontró pkg, pero no se pudo determinar el entorno de Termux."
-  echo "Diagnóstico: PREFIX=$PREFIX, pkg=$PKG_BIN"
-  exit 1
-fi
-
-echo "==> Termux detectado en: $PREFIX"
+echo "==> Termux detectado: $PREFIX"
 echo "==> Instalando dependencias..."
-pkg update -y
-pkg install -y python git
+"$PKG_BIN" update -y
+"$PKG_BIN" install -y python git
 
 echo "==> Descargando Node.mgo..."
 git clone --depth 1 --branch "$BRANCH" "$REPO" "$TMP_DIR/source"
@@ -62,5 +73,5 @@ done
 
 echo
 echo "Node.mgo se instaló correctamente."
-echo "Prueba con: node_mgo --help"
-echo "También puedes ejecutar: node-mgo --version"
+echo "Ejecuta: node_mgo --help"
+echo "Alias disponible: node-mgo --version"
