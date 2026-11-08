@@ -1,13 +1,13 @@
 # Node.mgo roadmap
 
-The final goal is **full Memingo ecosystem preservation plus full Node.js runtime functionality** for explicitly selected target versions. The work is delivered in stages; stages are an implementation order, not a decision to omit features permanently.
+The final goal is **full Memingo ecosystem preservation plus full Node.js 24 LTS runtime functionality**. The work is delivered in stages; stages are an implementation order, not a decision to omit features permanently.
 
 ## Stage 0 — Define and protect compatibility
-- [x] Define the unified runtime concept.
+- [x] Select Node.js 24 LTS as the compatibility target.
 - [ ] Select and record the Memingo baseline version.
-- [ ] Select a Node.js LTS target and its ECMAScript edition.
+- [ ] Record the ECMAScript features supported by the selected Node.js 24 patch release.
 - [ ] Inventory every Memingo language, standard-library, CLI and package-manager feature.
-- [ ] Inventory every public Node.js API and built-in module in the target release.
+- [ ] Inventory every public Node.js 24 API and built-in module.
 - [ ] Establish automated baseline tests before changing or integrating either runtime.
 
 ## Stage 1 — Preserve the Memingo ecosystem
@@ -18,7 +18,7 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js runtim
 - [ ] Add regression tests proving existing Memingo projects still work.
 
 ## Stage 2 — JavaScript language engine in Memingo
-- [ ] Lexer and complete tokenizer behavior.
+- [ ] Lexer and complete tokenizer behavior for the selected ECMAScript target.
 - [ ] Parser and syntax tree.
 - [ ] JavaScript values, coercion, equality and property semantics.
 - [ ] Scope, closures, functions and `this`.
@@ -27,7 +27,7 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js runtim
 - [ ] Promises, async functions, generators and iteration protocols.
 - [ ] ECMAScript built-ins and conformance tests.
 
-## Stage 3 — Node.js core runtime
+## Stage 3 — Node.js 24 core runtime
 - [ ] Globals and process lifecycle.
 - [ ] Event loop, timers, events and asynchronous I/O.
 - [ ] CommonJS and ECMAScript module loading.
@@ -35,7 +35,7 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js runtim
 - [ ] Streams and child-process APIs.
 - [ ] Networking, HTTP, TLS and DNS.
 - [ ] Diagnostics, errors, inspector/debugging and CLI behavior.
-- [ ] Remaining public built-in modules for the selected Node.js release.
+- [ ] Remaining public built-in modules in the Node.js 24 API documentation.
 
 ## Stage 4 — Unified developer ecosystem
 - [ ] One CLI with reliable `.mgo` and `.js` dispatch.
@@ -44,10 +44,13 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js runtim
 - [ ] Documentation, editor support, formatting and debugging for both languages.
 - [ ] Cross-language interoperability with explicit conversion rules.
 
-## Stage 5 — Compatibility verification
+## Stage 5 — Easy installation and compatibility verification
+- [ ] Provide a simple installer for each supported operating system.
+- [ ] Avoid requiring users to install upstream Node.js separately.
+- [ ] Keep dependencies minimal and document them clearly.
 - [ ] Run Memingo's full existing test suite as a release gate.
-- [ ] Run JavaScript language conformance tests for the chosen ECMAScript edition.
-- [ ] Run Node.js API tests for the selected Node.js release.
+- [ ] Run JavaScript language conformance tests for the selected Node.js 24 target.
+- [ ] Run Node.js 24 API tests.
 - [ ] Publish a complete compatibility matrix and known limitations.
 - [ ] Evaluate third-party npm package compatibility separately.
 - [ ] Release versioned builds for supported platforms.
