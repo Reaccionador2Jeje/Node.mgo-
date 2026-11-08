@@ -37,7 +37,7 @@ jobs:
       - name: Install build tools
         run: python -m pip install -r requirements-build.txt
       - name: Build standalone executable
-        run: python -m PyInstaller --noconfirm --clean --onefile --name node-mgo --paths vendor/memingo --collect-all memingo node_mgo/__main__.py
+        run: python -m PyInstaller --noconfirm --clean --onefile --name node-mgo --paths vendor/memingo --collect-all memingo packaging/entrypoint.py
       - name: Smoke-test executable (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
