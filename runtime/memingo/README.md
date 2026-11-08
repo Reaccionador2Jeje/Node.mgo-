@@ -2,7 +2,7 @@
 
 Node.mgo's initial upstream compatibility baseline is **Memingo 0.2** from `Reaccionador2Jeje/Memingo`. The `.mgo` path is not a reduced compatibility mode.
 
-The original Memingo interpreter remains the source of truth. Node.mgo should integrate it through a stable runtime interface and retain its semantics, standard library, tools and package workflows.
+The original Memingo interpreter remains the source of truth. The initial source snapshot is pinned to commit 77b6f0a7028bc5b3422c6d5a10e51d7b235639e9; update this pin only after reviewing upstream changes and rerunning the full regression suite. Node.mgo should integrate it through a stable runtime interface and retain its semantics, standard library, tools and package workflows.
 
 See [the complete Memingo feature inventory](../../docs/MEMINGO_INVENTORY.md), derived from the upstream `README.md`, `LANGUAGE.md` and `TODO.md`.
 
