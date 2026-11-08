@@ -1,0 +1,15 @@
+name = "node-mgo"
+version = "0.1.0-dev"
+description = "A Node.js-inspired runtime implemented around the Memingo language"
+license = "GPL-3.0"
+
+[files]
+memingo_extension = ".mgo"
+javascript_extension = ".js"
+
+[commands]
+main = "node-mgo"
+
+[runtimes]
+memingo = "native"
+javascript = "planned-memingo-interpreter"
