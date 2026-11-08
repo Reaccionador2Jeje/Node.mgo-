@@ -4,22 +4,27 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js 24 LTS
 
 ## Stage 0 — Define and protect compatibility
 - [x] Select Node.js 24 LTS as the compatibility target.
-- [x] Record Memingo 0.2 as the initial compatibility baseline.
+- [x] Record Memingo 0.2.0 as the initial compatibility baseline.
 - [x] Pin the initial Node.js API reference to v24.22.2.
-- [x] Create a Memingo language, standard-library, CLI and package-manager inventory from upstream documentation.
-- [x] Create a top-level Node.js 24 API inventory.
+- [x] Pin the exact Memingo upstream commit used for the vendored source.
+- [x] Create Memingo and Node.js feature inventories.
 - [x] Write the implementation blueprint and architectural boundaries.
-- [ ] Pin the exact upstream Memingo commit/release used for integration.
+- [x] Add CI configuration for Memingo regression and Node.mgo integration tests.
 - [ ] Expand Node.js coverage into every documented symbol, overload, option, event, error and stability label.
-- [ ] Establish automated baseline tests before changing or integrating either runtime.
+- [ ] Confirm green CI baseline across all supported platforms.
 
-## Stage 1 — Preserve the Memingo ecosystem
-- [ ] Integrate the existing Memingo interpreter without changing its language semantics.
-- [ ] Preserve all built-ins, standard-library functions and runtime helpers.
-- [ ] Preserve projects, CLI, REPL, formatter, diagnostics and test commands.
-- [ ] Preserve mgoa package management, registry, lockfile and package workflows.
-- [ ] Preserve MemeCraft, website, installers, shell completions and VS Code support.
-- [ ] Add regression tests proving existing Memingo projects still work.
+## Stage 1 — Preserve and execute Memingo
+- [x] Vendor the original Memingo interpreter package without rewriting its language implementation.
+- [x] Preserve lexer, parser, interpreter, built-ins, formatter, project tools, REPL and CLI modules.
+- [x] Preserve the mgoa package-manager implementation and its command entry point.
+- [x] Add a Node.mgo CLI bridge for .mgo files, Memingo commands and mgoa commands.
+- [x] Vendor the upstream Memingo regression test suite.
+- [x] Add Node.mgo CLI integration tests.
+- [x] Preserve upstream Memingo documentation and BSD 3-Clause license.
+- [ ] Run and confirm the upstream regression suite in CI.
+- [ ] Vendor or otherwise pin the curated package catalog, examples and remaining Memingo distribution assets.
+- [ ] Integrate MemeCraft, website, installers, shell completions and VS Code support into the unified distribution.
+- [ ] Add regression tests proving real existing Memingo projects and package workflows work unchanged.
 
 ## Stage 2 — JavaScript language engine in Memingo
 - [ ] Implement source positions, lexer and complete tokenizer behavior for the selected ECMAScript target.
@@ -63,7 +68,7 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js 24 LTS
 ## Stage 6 — Installation and compatibility verification
 - [ ] Provide simple installers for supported operating systems.
 - [ ] Avoid requiring upstream Node.js separately.
-- [ ] Keep dependencies minimal and documented.
+- [ ] Minimize and document host dependencies; Python 3.10+ is required by the current Memingo bridge.
 - [ ] Run Memingo's complete existing test suite as a release gate.
 - [ ] Run JavaScript language conformance tests for the selected target.
 - [ ] Run Node.js 24 API tests and CLI behavior tests.
