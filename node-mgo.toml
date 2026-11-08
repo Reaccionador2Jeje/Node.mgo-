@@ -1,6 +1,6 @@
 name = "node-mgo"
 version = "0.1.0-dev"
-description = "A Node.js-inspired runtime implemented around the Memingo language"
+description = "A Node.js 24-compatible runtime preserving the Memingo ecosystem"
 license = "GPL-3.0"
 
 [files]
@@ -10,6 +10,14 @@ javascript_extension = ".js"
 [commands]
 main = "node-mgo"
 
+[compatibility]
+nodejs = "24.x LTS"
+memingo = "full ecosystem compatibility"
+
 [runtimes]
 memingo = "native"
 javascript = "planned-memingo-interpreter"
+
+[installation]
+requires_upstream_nodejs = false
+goal = "simple installer with minimal dependencies"
