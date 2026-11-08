@@ -37,23 +37,23 @@ jobs:
       - name: Install build tools
         run: python -m pip install -r requirements-build.txt
       - name: Build standalone executable
-        run: python -m PyInstaller --noconfirm --clean --onefile --name node-mgo --paths vendor/memingo --collect-all memingo packaging/entrypoint.py
+        run: python -m PyInstaller --noconfirm --clean --onefile --name node_mgo --paths vendor/memingo --collect-all memingo packaging/entrypoint.py
       - name: Smoke-test executable (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          .\dist\node-mgo.exe --version
+          .\dist\node_mgo.exe --version
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          .\dist\node-mgo.exe --help
+          .\dist\node_mgo.exe --help
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $output = & .\dist\node-mgo.exe examples/hello.mgo
+          $output = & .\dist\node_mgo.exe examples/hello.mgo
           if ($LASTEXITCODE -ne 0 -or $output -notmatch 'Hello from Node.mgo') { throw 'Packaged Memingo example failed.' }
       - name: Smoke-test executable (Unix)
         if: runner.os != 'Windows'
         run: |
-          ./dist/node-mgo --version
-          ./dist/node-mgo --help
-          test "$(./dist/node-mgo examples/hello.mgo)" = "Hello from Node.mgo"
+          ./dist/node_mgo --version
+          ./dist/node_mgo --help
+          test "$(./dist/node_mgo examples/hello.mgo)" = "Hello from Node.mgo"
       - name: Build Windows installer
         if: runner.os == 'Windows'
         shell: pwsh
@@ -67,26 +67,26 @@ jobs:
         run: |
           VERSION=$(python -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'].replace('.dev0',''))")
           mkdir -p pkgroot/usr/local/bin pkgroot/usr/local/share/doc/node-mgo
-          cp dist/node-mgo pkgroot/usr/local/bin/node-mgo
+          cp dist/node_mgo pkgroot/usr/local/bin/node_mgo
           cp LICENSE pkgroot/usr/local/share/doc/node-mgo/LICENSE
           cp vendor/memingo/LICENSE pkgroot/usr/local/share/doc/node-mgo/Memingo-BSD-3-Clause.txt
-          chmod 755 pkgroot/usr/local/bin/node-mgo
+          chmod 755 pkgroot/usr/local/bin/node_mgo
           pkgbuild --root pkgroot --identifier dev.atdev.node-mgo --version "$VERSION" --install-location / dist/Node.mgo-macOS-arm64.pkg
       - name: Build Linux packages
         if: runner.os == 'Linux'
         run: |
           VERSION=$(python -c "import tomllib,pathlib; print(tomllib.loads(pathlib.Path('pyproject.toml').read_text())['project']['version'].replace('.dev0',''))")
           mkdir -p dist/node-mgo-linux-x64/licenses
-          cp dist/node-mgo dist/node-mgo-linux-x64/node-mgo
+          cp dist/node_mgo dist/node-mgo-linux-x64/node_mgo
           cp LICENSE dist/node-mgo-linux-x64/licenses/GPL-3.0.txt
           cp vendor/memingo/LICENSE dist/node-mgo-linux-x64/licenses/Memingo-BSD-3-Clause.txt
-          chmod 755 dist/node-mgo-linux-x64/node-mgo
+          chmod 755 dist/node-mgo-linux-x64/node_mgo
           tar -C dist -czf dist/Node.mgo-Linux-x64.tar.gz node-mgo-linux-x64
           mkdir -p debroot/usr/bin debroot/DEBIAN debroot/usr/share/doc/node-mgo
-          cp dist/node-mgo debroot/usr/bin/node-mgo
+          cp dist/node_mgo debroot/usr/bin/node_mgo
           cp LICENSE debroot/usr/share/doc/node-mgo/copyright
           cp vendor/memingo/LICENSE debroot/usr/share/doc/node-mgo/Memingo-BSD-3-Clause.txt
-          chmod 755 debroot/usr/bin/node-mgo
+          chmod 755 debroot/usr/bin/node_mgo
           cat > debroot/DEBIAN/control <<EOF
           Package: node-mgo
           Version: ${VERSION}
