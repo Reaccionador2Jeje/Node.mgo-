@@ -1,27 +1,61 @@
 # Node.mgo
 
-A unified runtime project by Atdev Dev: preserve the Memingo programming ecosystem and target the full Node.js 24 runtime API, with the JavaScript engine implemented in Memingo. Licensed under GNU GPL 3.0.
+A unified runtime by Atdev Dev. The goal is to preserve the Memingo programming ecosystem and implement the Node.js 24 runtime API, with the JavaScript engine written in Memingo.
 
-## Compatibility baselines
-
-- Memingo 0.2, documented in the original Memingo repository.
+## Compatibility targets
+- Memingo 0.2.0, vendored from upstream commit 77b6f0a7028bc5b3422c6d5a10e51d7b235639e9.
 - Node.js 24 LTS API reference, initially pinned to v24.22.2.
-- The upstream Node.js installation is a compatibility reference, not a required runtime dependency.
+- Upstream Node.js is a compatibility reference, not a required runtime dependency.
+
+## Current executable functionality
+- The original Memingo 0.2 Python runtime is vendored under vendor/memingo/memingo/.
+- The original Memingo CLI, REPL, formatter, interpreter, standard library, project tooling and mgoa package-manager code are preserved.
+- python -m node_mgo file.mgo runs a Memingo source file through the original interpreter.
+- python -m node_mgo memingo <command> forwards to the original Memingo CLI.
+- python -m node_mgo mgoa <command> forwards to the original package manager.
+- The original upstream regression tests are vendored under vendor/memingo/tests/.
+- Node.mgo integration tests and a cross-platform GitHub Actions workflow have been added.
+
+JavaScript files (.js, .mjs, .cjs) are **not executable yet**. The CLI reports this explicitly and does not secretly invoke Node.js, V8 or another JavaScript runtime.
+
+## Requirements for this development snapshot
+- Python 3.10 or newer is currently required because the preserved Memingo 0.2 interpreter is Python-based.
+- Node.js and npm are not required to run the current Memingo milestone.
+- The long-term goal is a simpler standalone installation with a minimal documented host dependency set.
+
+## Run from source
+    python -m node_mgo --help
+    python -m node_mgo --version
+    python -m node_mgo examples/hello.mgo
+    python -m node_mgo memingo --version
+    python -m node_mgo mgoa --help
+
+Install the Python package locally:
+    python -m pip install .
+    node-mgo --help
+    node-mgo examples/hello.mgo
+
+## Tests
+Run Node.mgo bridge tests:
+    python -m unittest discover -s tests -p "test_node_mgo*.py" -v
+
+Run the original Memingo regression suite:
+    PYTHONPATH=vendor/memingo python -m unittest discover -s vendor/memingo/tests -v
+
+The CI workflow runs both suites across Python 3.10–3.13 on Linux, Windows and macOS. A workflow being configured is not the same as a green test result; check the Actions tab for the latest run.
 
 ## Project documentation
-
 - [Architecture](docs/ARCHITECTURE.md)
+- [Implementation blueprint](docs/IMPLEMENTATION_BLUEPRINT.md)
 - [Memingo feature inventory](docs/MEMINGO_INVENTORY.md)
 - [Node.js 24 API inventory](docs/NODEJS_24_INVENTORY.md)
-- [Implementation blueprint](docs/IMPLEMENTATION_BLUEPRINT.md)
 - [API ledger template](docs/API_LEDGER_TEMPLATE.md)
 - [Roadmap](docs/ROADMAP.md)
-- [Native Memingo runtime](runtime/memingo/README.md)
-- [JavaScript interpreter plan](runtime/javascript/README.md)
+- [Memingo integration details](runtime/memingo/README.md)
+- [JavaScript engine plan](runtime/javascript/README.md)
 - [Test strategy](tests/README.md)
 
-## Current status
+## Licensing
+Node.mgo is distributed under GPL-3.0. The vendored Memingo 0.2 source retains its upstream BSD 3-Clause license and copyright notice in vendor/memingo/LICENSE.
 
-This repository currently contains the initial design and documentation scaffold. The inventories define what must be preserved or implemented; they do **not** mean the runtime or full compatibility is already implemented. See the roadmap for the implementation stages.
-
-Example programs are available in `examples/`. The JavaScript example is a target for the planned interpreter; it is not yet executable by Node.mgo.
+**Compatibility honesty:** the repository currently contains a working Memingo bridge and the design for the JavaScript engine. It does not yet implement JavaScript or full Node.js 24 compatibility.
