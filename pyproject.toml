@@ -13,6 +13,7 @@ authors = [{name = "Atdev Dev"}]
 dependencies = []
 
 [project.scripts]
+node_mgo = "node_mgo.cli:main"
 node-mgo = "node_mgo.cli:main"
 memingo = "memingo.__main__:main"
 mgoa = "memingo.mgoa_cli:main"
