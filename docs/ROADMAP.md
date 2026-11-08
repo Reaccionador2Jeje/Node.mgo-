@@ -4,10 +4,11 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js 24 LTS
 
 ## Stage 0 — Define and protect compatibility
 - [x] Select Node.js 24 LTS as the compatibility target.
-- [ ] Select and record the Memingo baseline version.
-- [ ] Record the ECMAScript features supported by the selected Node.js 24 patch release.
-- [ ] Inventory every Memingo language, standard-library, CLI and package-manager feature.
-- [ ] Inventory every public Node.js 24 API and built-in module.
+- [x] Record Memingo 0.2 as the initial compatibility baseline.
+- [x] Pin the initial Node.js API reference to v24.22.2.
+- [x] Create a Memingo language, standard-library, CLI and package-manager inventory from the upstream documentation.
+- [x] Create a top-level Node.js 24 API inventory from the official documentation.
+- [ ] Expand the Node.js API inventory into every documented symbol, overload, option, event, error and stability label.
 - [ ] Establish automated baseline tests before changing or integrating either runtime.
 
 ## Stage 1 — Preserve the Memingo ecosystem
@@ -15,6 +16,7 @@ The final goal is **full Memingo ecosystem preservation plus full Node.js 24 LTS
 - [ ] Preserve all built-ins, standard-library functions and runtime helpers.
 - [ ] Preserve projects, CLI, REPL, formatter, diagnostics and test commands.
 - [ ] Preserve mgoa package management and package workflows.
+- [ ] Preserve MemeCraft, website, installers, shell completions and VS Code support.
 - [ ] Add regression tests proving existing Memingo projects still work.
 
 ## Stage 2 — JavaScript language engine in Memingo
