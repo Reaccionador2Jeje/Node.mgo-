@@ -84,3 +84,9 @@ The CI workflow runs both suites across Python 3.10–3.13 on Linux, Windows and
 Node.mgo is distributed under GPL-3.0. The vendored Memingo 0.2 source and package ecosystem retain their upstream BSD 3-Clause license and copyright notice in `vendor/memingo/LICENSE`.
 
 **Compatibility honesty:** the repository currently contains a working Memingo bridge and the vendored Memingo package ecosystem, plus the design for the JavaScript engine. It does not yet implement JavaScript or full Node.js 24 compatibility.
+
+## Walletie compatibility
+
+The runtime has no direct wallet dependency. Any future integration belongs in an optional trusted companion service, never in the runtime's core execution path.
+
+Walletie V1 currently accepts AtDev Cloud HS256 tokens only; other identity systems need the documented SSO bridge first. See the [Walletie integration matrix](https://github.com/Reaccionador2Jeje/Walletie/blob/main/docs/INTEGRATION_MATRIX.md).
